@@ -41,12 +41,12 @@ namespace Vehicles.API
                 x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddTransient<SeedDb>();
-            services.AddScoped<IUserHelper, UserHelper>();
-            
-
             //aqui injectamos infromacion en la base de datos la primera vez
             services.AddTransient<SeedDb>();
+            services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<ICombosHelper, CombosHelper>();            
+            services.AddTransient<IBlobHelper, BlobHelper>();
+            services.AddTransient<IConverterHelper, ConverterHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
