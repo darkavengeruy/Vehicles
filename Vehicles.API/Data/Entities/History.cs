@@ -14,8 +14,12 @@ namespace Vehicles.API.Data.Entities
         public Vehicle Vehicle { get; set; }
 
         [Display(Name = "Fecha")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
         public DateTime Date { get; set; }
+
+        [Display(Name = "Fecha")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
+        public DateTime DateLocal => Date.ToLocalTime();
 
         [Display(Name = "Kilometraje")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
@@ -38,7 +42,7 @@ namespace Vehicles.API.Data.Entities
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal TotalLabor => Details == null ? 0 : Details.Sum(x => x.LaborPrice);
 
-        [Display(Name = "Precio Repuestos")]
+        [Display(Name = "Total Repuestos")]
         [DisplayFormat(DataFormatString = "{0:C2}")]
         public decimal TotalSpareParts => Details == null ? 0 : Details.Sum(x => x.SparePartsPrice);
 

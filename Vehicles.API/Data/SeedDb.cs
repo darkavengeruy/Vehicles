@@ -30,6 +30,7 @@ namespace Vehicles.API.Data
             await CheckUserAsync("1010", "Fernando", "Franco", "21.897.419-8", "ffranco@yopmail.com", "984787772", "Santa Isabel 157 dpto 1108","Santiago", UserType.Admin);
             await CheckUserAsync("2020", "Caroline", "Navarrete", "21.897.419-8", "cnavarrete@yopmail.com", "988040341", "Santa Isabel 157 dpto 211", "Santiago", UserType.User);
             await CheckUserAsync("3030", "Carla", "Vera", "12.011.352-6", "carlavera@yopmail.com", "955300758", "Bellavista 237 dpto 157", "Santiago", UserType.User);
+            await CheckUserAsync("4040", "Adriana", "Franco", "1.854.105-2", "adrianafranco@yopmail.com", "99135063", "Arrieta 3448 apto 1", "Montevideo", UserType.Admin);
         }
 
         private async Task CheckUserAsync(string document, string firstName, string lastName,string RUT, string email, string phoneNumber, string address, string city, UserType userType)
