@@ -27,13 +27,17 @@ namespace Vehicles.API
 
             services.AddIdentity<User, IdentityRole>(x =>
             {
+                x.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                x.SignIn.RequireConfirmedEmail = true;
+
                 x.User.RequireUniqueEmail = true;
                 x.Password.RequireDigit = false;
                 x.Password.RequiredUniqueChars = 0;
                 x.Password.RequireLowercase = false;
                 x.Password.RequireNonAlphanumeric = false;
                 x.Password.RequireUppercase = false;
-            }) 
+            })
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<DataContext>();
 
             services.ConfigureApplicationCookie(options =>
@@ -54,6 +58,7 @@ namespace Vehicles.API
             services.AddScoped<ICombosHelper, CombosHelper>();            
             services.AddTransient<IBlobHelper, BlobHelper>();
             services.AddTransient<IConverterHelper, ConverterHelper>();
+            services.AddTransient<IMailHelper, MailHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,7 +75,7 @@ namespace Vehicles.API
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithReExecute("/error/{0"); //redireccion los errores a la pagina de errores.
+            app.UseStatusCodePagesWithReExecute("/error/{0}"); //redireccion los errores a la pagina de errores.
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();

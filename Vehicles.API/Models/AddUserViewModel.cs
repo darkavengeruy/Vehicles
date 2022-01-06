@@ -13,10 +13,10 @@ namespace Vehicles.API.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string UserName { get; set; }
 
-        [DataType(DataType.Password)]
+        [DataType(DataType.Password)]        
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Contraseña")]
         [MaxLength(6, ErrorMessage = "El campo {0} no puede tener mas de {1} carácteres")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Password { get; set; }
 
         [Display(Name = "Confirmación de contraseña")]        

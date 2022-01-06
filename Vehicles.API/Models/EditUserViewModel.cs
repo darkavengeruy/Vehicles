@@ -55,12 +55,12 @@ namespace Vehicles.API.Models
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Foto")]        
-        public Guid ImageId { get; set; }
+        public Guid imageId { get; set; }
 
         [Display(Name = "Foto")]
-        public string ImageFullPath => ImageId == Guid.Empty
+        public string ImageFullPath => imageId == Guid.Empty
             ? $"https://localhost:44367/images/noimage.png"
-            : $"https://vehiclesfranco.blob.core.windows.net/users/{ImageId}";
+            : $"https://vehiclesfranco.blob.core.windows.net/users/{imageId}";
 
         [Display(Name = "Foto")]
         public IFormFile ImageFile { get; set; }
