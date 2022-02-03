@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Vehicles.API.Data.Entities
 {
@@ -7,6 +8,7 @@ namespace Vehicles.API.Data.Entities
     {
         public int Id { get; set; }
 
+        [JsonIgnore]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Vehicle Vehicle { get; set; }
 
@@ -15,7 +17,7 @@ namespace Vehicles.API.Data.Entities
 
         [Display(Name = "Foto")]
         public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://localhost:44367/images/noimage.png"
+            ? $"https://vehiclesapiffranco.azurewebsites.net/images/noimage.png"
             : $"https://vehiclesfranco.blob.core.windows.net/vehicles/{ImageId}";
     }
 }

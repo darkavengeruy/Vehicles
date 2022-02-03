@@ -50,6 +50,7 @@ namespace Vehicles.API.Controllers.API
                             _configuration["Tokens:Audience"],
                             claims,
                             expires: DateTime.UtcNow.AddDays(99),
+                            //expires: DateTime.UtcNow.AddMinutes(1),
                             signingCredentials: credentials);
                         var results = new
                         {

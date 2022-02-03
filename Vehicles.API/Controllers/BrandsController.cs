@@ -81,7 +81,7 @@ namespace Vehicles.API.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,Description")] Brand brand)
+    public async Task<IActionResult> Edit(int id, Brand brand)
     {
         if (id != brand.Id)
         {
