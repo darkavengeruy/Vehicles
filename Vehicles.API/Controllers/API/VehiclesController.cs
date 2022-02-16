@@ -125,7 +125,7 @@ namespace Vehicles.API.Controllers.API
             Vehicle vehicle = await _context.Vehicles.FindAsync(request.Id);
             if (vehicle == null)
             {
-                return BadRequest("El vehiculocon no existe.");
+                return BadRequest("El vehiculo no existe.");
             }
 
             vehicle.Brand = brand;
@@ -134,8 +134,7 @@ namespace Vehicles.API.Controllers.API
             vehicle.Model = request.Model;
             vehicle.Plaque = request.Plaque;
             vehicle.Remarks = request.Remarks;
-            vehicle.VehicleType = vehicleType;
-            
+            vehicle.VehicleType = vehicleType;           
 
             try
             {
@@ -147,7 +146,7 @@ namespace Vehicles.API.Controllers.API
             {
                 if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                 {
-                    return BadRequest("Ya existe este procedimiento.");
+                    return BadRequest("Ya existe esta marca.");
                 }
                 else
                 {
@@ -158,8 +157,7 @@ namespace Vehicles.API.Controllers.API
             {
                 return BadRequest(exception.Message);
             }      
-        }        
-       
+        }     
        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehicle(int id)
