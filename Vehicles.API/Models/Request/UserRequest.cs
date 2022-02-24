@@ -20,9 +20,18 @@ namespace Vehicles.API.Models.Request
         [MaxLength(20, ErrorMessage = "El campo {0} no puede tener mas de {1} carácteres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Document { get; set; }
+        
+        [MaxLength(12, ErrorMessage = "El campo {0} no puede tener mas de {1} carácteres")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public string RUT { get; set; }
 
         [MaxLength(100, ErrorMessage = "El campo {0} no puede tener mas de {1} carácteres")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public string Address { get; set; }
+        
+        [MaxLength(50, ErrorMessage = "El campo {0} no puede tener mas de {1} carácteres")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        public string City { get; set; }
 
         [MaxLength(20, ErrorMessage = "El campo {0} no puede tener mas de {1} carácteres")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]

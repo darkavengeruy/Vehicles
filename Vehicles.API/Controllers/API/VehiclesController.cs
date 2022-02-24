@@ -28,7 +28,27 @@ namespace Vehicles.API.Controllers.API
             _blobHelper = blobHelper;
             _userHelper = userHelper;
         }
-        
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Vehicle>> GetVehicle(int id)
+        {
+            var vehicle = await _context.Vehicles
+                .Include(x => x.VehicleType)
+                .Include(x => x.Brand)
+                .Include(x => x.VehiclePhotos)
+                .Include(x => x.Histories)
+                .ThenInclude(x => x.Details)
+                .ThenInclude(x => x.Procedure)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            return vehicle;
+        }
+
         [HttpPost]
         public async Task<ActionResult<Vehicle>> PostVehicle(VehicleRequest request)
         {
@@ -65,7 +85,7 @@ namespace Vehicles.API.Controllers.API
             List<VehiclePhoto> vehiclePhotos = new();
             if(request.Image != null && request.Image.Length > 0)
             {
-                imageId = await _blobHelper.UploadBlobAsync(request.Image, "vehicle");
+                imageId = await _blobHelper.UploadBlobAsync(request.Image, "vehicles");
                 vehiclePhotos.Add(new VehiclePhoto
                 {
                     ImageId = imageId
@@ -175,7 +195,7 @@ namespace Vehicles.API.Controllers.API
             _context.Vehicles.Remove(vehicle);
             await _context.SaveChangesAsync();
             return NoContent();
-        }        
-       
+        }
+
     }
 }

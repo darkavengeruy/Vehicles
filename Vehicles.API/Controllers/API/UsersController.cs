@@ -97,6 +97,8 @@ namespace Vehicles.API.Controllers.API
             user = new User
             {
                 Address = request.Address,
+                City = request.City,
+                RUT = request.RUT,
                 //CountryCode = request.CountryCode,
                 Document = request.Document,
                 DocumentType = documentType,

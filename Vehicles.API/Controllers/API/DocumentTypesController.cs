@@ -1,20 +1,19 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Vehicles.API.Data;
 using Vehicles.API.Data.Entities;
 
 namespace Vehicles.API.Controllers.API
 {
+    [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
-    [ApiController]
     public class DocumentTypesController : ControllerBase
     {
         private readonly DataContext _context;
@@ -24,18 +23,17 @@ namespace Vehicles.API.Controllers.API
             _context = context;
         }
 
-        // GET: api/DocumentTypes
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DocumentType>>> GetDocumentTypes()
         {
-            return await _context.DocumentTypes.ToListAsync();
+            return await _context.DocumentTypes.OrderBy(x => x.Description).ToListAsync();
         }
 
-        
         [HttpGet("{id}")]
         public async Task<ActionResult<DocumentType>> GetDocumentType(int id)
         {
-            var documentType = await _context.DocumentTypes.FindAsync(id);
+            DocumentType documentType = await _context.DocumentTypes.FindAsync(id);
 
             if (documentType == null)
             {
@@ -44,7 +42,7 @@ namespace Vehicles.API.Controllers.API
 
             return documentType;
         }
-        
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDocumentType(int id, DocumentType documentType)
         {
@@ -64,7 +62,7 @@ namespace Vehicles.API.Controllers.API
             {
                 if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                 {
-                    return BadRequest("Ya existe este documento.");
+                    return BadRequest("Ya existe tipo de documento.");
                 }
                 else
                 {
@@ -74,9 +72,9 @@ namespace Vehicles.API.Controllers.API
             catch (Exception exception)
             {
                 return BadRequest(exception.Message);
-            }            
+            }
         }
-        
+
         [HttpPost]
         public async Task<ActionResult<DocumentType>> PostDocumentType(DocumentType documentType)
         {
@@ -91,7 +89,7 @@ namespace Vehicles.API.Controllers.API
             {
                 if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                 {
-                    return BadRequest("Ya existe este documento.");
+                    return BadRequest("Ya existe tipo de documento.");
                 }
                 else
                 {
@@ -101,13 +99,13 @@ namespace Vehicles.API.Controllers.API
             catch (Exception exception)
             {
                 return BadRequest(exception.Message);
-            }         
+            }
         }
-        
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDocumentType(int id)
         {
-            var documentType = await _context.DocumentTypes.FindAsync(id);
+            DocumentType documentType = await _context.DocumentTypes.FindAsync(id);
             if (documentType == null)
             {
                 return NotFound();
